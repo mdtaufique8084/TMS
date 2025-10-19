@@ -373,8 +373,7 @@ CREATE TABLE Task (
 npm run dev            # Start development server with hot reload
 npm run build          # Build for production
 npm start              # Start production server
-npm test               # Run test suite
-npm run test:coverage  # Run tests with coverage report
+npx jest               # Run test suite
 ```
 
 ### Frontend Scripts
@@ -383,8 +382,7 @@ npm run dev            # Start development server
 npm run build          # Build for production
 npm run preview        # Preview production build
 npm run lint           # Run ESLint
-npm test               # Run test suite
-npm run test:coverage  # Run tests with coverage report
+npx jest --watch             # Run test suite
 ```
 
 ## 🚨 Troubleshooting
@@ -423,34 +421,74 @@ TMS/
 ├── Backend/
 │   ├── src/
 │   │   ├── config/          # Database configuration
+│   │   │   └── db.ts        # Prisma client setup
 │   │   ├── controller/      # Route controllers
+│   │   │   ├── authController.ts
+│   │   │   └── taskController.ts
 │   │   ├── middleware/      # Authentication middleware
+│   │   │   └── auth.ts      # JWT verification middleware
 │   │   ├── routes/          # API routes
+│   │   │   ├── authRoutes.ts
+│   │   │   └── taskRoutes.ts
 │   │   └── index.ts         # Server entry point
-│   ├── tests/               # Backend test files
+│   ├── __tests__/           # Backend test files
 │   │   ├── auth.test.ts     # Authentication tests
-│   │   ├── tasks.test.ts    # Task management tests
-│   │   └── setup.ts         # Test setup configuration
+│   │   └── tasks.test.ts    # Task management tests
 │   ├── prisma/
 │   │   ├── migrations/      # Database migrations
+│   │   │   └── 20251018174456_init/
+│   │   │       └── migration.sql
 │   │   └── schema.prisma    # Database schema
+│   ├── generated/           # Generated Prisma client
 │   ├── jest.config.js       # Jest testing configuration
+│   ├── tsconfig.json        # TypeScript configuration
 │   └── package.json
 ├── Frontend/
 │   ├── src/
 │   │   ├── api/             # API configuration
+│   │   │   └── axios.ts     # Axios instance with interceptors
 │   │   ├── app/             # Redux store configuration
+│   │   │   ├── hooks.ts     # Typed Redux hooks
+│   │   │   └── store.ts     # Redux store setup
 │   │   ├── components/      # Reusable components
+│   │   │   ├── Navbar.tsx
+│   │   │   └── ProtectedRoute.tsx
 │   │   ├── features/        # Feature-based modules
 │   │   │   ├── auth/        # Authentication features
-│   │   │   └── tasks/       # Task management features
+│   │   │   │   ├── authSlice.ts
+│   │   │   │   ├── Login.tsx
+│   │   │   │   └── Register.tsx
+│   │   │   ├── tasks/       # Task management features
+│   │   │   │   ├── TaskForm.tsx
+│   │   │   │   ├── TaskList.tsx
+│   │   │   │   ├── taskSlice.ts
+│   │   │   │   └── TasksPage.tsx
+│   │   │   └── LandingPage.tsx
 │   │   ├── routes/          # Application routing
-│   │   └── types/           # TypeScript type definitions
-│   ├── __tests__/           # Frontend test files
-│   │   ├── components/      # Component tests
-│   │   ├── features/        # Feature tests
-│   │   └── setup.ts         # Test setup configuration
-│   ├── jest.config.js       # Jest testing configuration
+│   │   │   └── AppRoutes.tsx
+│   │   ├── types/           # TypeScript type definitions
+│   │   │   └── index.ts
+│   │   ├── __tests__/       # Frontend test files
+│   │   │   ├── Login.test.tsx
+│   │   │   ├── Register.test.tsx
+│   │   │   └── TaskForm.test.tsx
+│   │   ├── assets/          # Static assets
+│   │   │   └── react.svg
+│   │   ├── index.css        # Global styles
+│   │   ├── main.tsx         # Application entry point
+│   │   └── setupTests.ts    # Test setup configuration
+│   ├── public/              # Public assets
+│   │   └── vite.svg
+│   ├── jest.config.ts       # Jest testing configuration
+│   ├── eslint.config.js     # ESLint configuration
+│   ├── tailwind.config.js   # Tailwind CSS configuration
+│   ├── postcss.config.js    # PostCSS configuration
+│   ├── vite.config.ts       # Vite configuration
+│   ├── tsconfig.json        # TypeScript configuration
+│   ├── tsconfig.app.json    # App TypeScript config
+│   ├── tsconfig.jest.json   # Jest TypeScript config
+│   ├── tsconfig.node.json   # Node TypeScript config
+│   ├── index.html           # HTML template
 │   └── package.json
 └── README.md
 ```
