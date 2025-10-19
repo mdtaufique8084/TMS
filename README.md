@@ -155,28 +155,15 @@ The project includes comprehensive test suites for both frontend and backend:
 **Backend Testing** (Jest + Supertest):
 ```bash
 cd Backend
-npm test
+npx jest
 ```
 
 **Frontend Testing** (Jest + React Testing Library):
 ```bash
 cd Frontend
-npm test
+npx jest --watch
 ```
 
-### Test Coverage
-
-To view test coverage reports:
-
-```bash
-# Backend coverage
-cd Backend
-npm run test:coverage
-
-# Frontend coverage
-cd Frontend
-npm run test:coverage
-```
 
 ### Test Structure
 
