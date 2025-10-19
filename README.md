@@ -58,7 +58,7 @@ cd Backend
 npm install
 
 # Create environment file
-cp .env.example .env
+New-Item .env
 ```
 
 ### 3. Configure Environment Variables

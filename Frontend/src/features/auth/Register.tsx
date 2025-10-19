@@ -5,7 +5,8 @@ import { registerUser } from "./authSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // <-- import useNavigate
+import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react"; 
 
 const schema = z.object({
   username: z
@@ -19,8 +20,9 @@ type FormData = z.infer<typeof schema>;
 
 const Register = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate(); // <-- initialize navigate
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); 
 
   const {
     register,
@@ -36,7 +38,6 @@ const Register = () => {
       await dispatch(registerUser(data)).unwrap();
       toast.success("Registered successfully!");
       navigate("/login");
-      
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err || "Registration failed!");
@@ -52,6 +53,7 @@ const Register = () => {
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+        {/* Email */}
         <div className="relative">
           <input
             {...register("username")}
@@ -67,15 +69,23 @@ const Register = () => {
           )}
         </div>
 
+        {/* Password with toggle */}
         <div className="relative">
           <input
             {...register("password")}
-            type="password"
+            type={showPassword ? "text" : "password"} 
             placeholder="Password"
             className={`w-full p-4 rounded-xl border ${
               errors.password ? "border-red-500" : "border-gray-300"
             } focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition`}
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
+          >
+            {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
+          </button>
           {errors.password && (
             <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-[-1.2rem]">
               {errors.password.message}
@@ -83,6 +93,7 @@ const Register = () => {
           )}
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
@@ -114,15 +125,16 @@ const Register = () => {
           )}
           Register
         </button>
+
         <p className="text-center text-gray-500 mt-2">
-            Already have an account?{" "}
-            <span
-              onClick={() => navigate("/login")}
-              className="text-blue-500 hover:underline cursor-pointer"
-            >
-              Login
-            </span>
-          </p>
+          Already have an account?{" "}
+          <span
+            onClick={() => navigate("/login")}
+            className="text-blue-500 hover:underline cursor-pointer"
+          >
+            Login
+          </span>
+        </p>
       </form>
     </div>
   );
