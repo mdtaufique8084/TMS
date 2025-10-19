@@ -68,7 +68,7 @@ const TaskList = ({ onEdit }: TaskListProps) => {
       </h2>
 
       {/* Search and Filter Controls */}
-      <div className="flex flex-col md:flex-row gap-4 mb-6 justify-center items-center">
+      <div className="flex flex-col md:flex-row gap-4 mb-4 justify-center items-center">
         <div className="relative w-full md:w-1/3">
           <AiOutlineSearch className="absolute left-3 top-3 text-gray-400 text-lg" />
           <input

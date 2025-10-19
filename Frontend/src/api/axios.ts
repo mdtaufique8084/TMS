@@ -4,7 +4,7 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:5000/api", // point to backend
 });
 
-// Add Authorization header automatically
+// Authorization header added automatically
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token && config.headers) {
