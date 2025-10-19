@@ -10,6 +10,7 @@ A full-stack web application for managing personal tasks with user authenticatio
 - **Protected Routes**: Secure task access with authentication middleware
 - **Responsive Design**: Built with Tailwind CSS for mobile-first design
 - **Type Safety**: Full TypeScript implementation across frontend and backend
+- **Comprehensive Testing**: Full test coverage with Jest for both frontend and backend
 
 ## 🏗️ Architecture
 
@@ -20,6 +21,7 @@ A full-stack web application for managing personal tasks with user authenticatio
 - **JWT** for authentication
 - **bcryptjs** for password hashing
 - **CORS** enabled for cross-origin requests
+- **Jest + Supertest** for testing
 
 ### Frontend
 - **React 19** with **TypeScript**
@@ -29,6 +31,7 @@ A full-stack web application for managing personal tasks with user authenticatio
 - **Tailwind CSS** for styling
 - **React Hook Form** with **Zod** validation
 - **React Hot Toast** for notifications
+- **Jest + React Testing Library** for testing
 
 ## 📋 Prerequisites
 
@@ -147,19 +150,17 @@ npm install
 
 ### Running Tests
 
-Currently, the project doesn't have test suites configured. To add testing:
+The project includes comprehensive test suites for both frontend and backend:
 
 **Backend Testing** (Jest + Supertest):
 ```bash
 cd Backend
-npm install --save-dev jest supertest @types/jest @types/supertest
 npm test
 ```
 
-**Frontend Testing** (Vitest + React Testing Library):
+**Frontend Testing** (Jest + React Testing Library):
 ```bash
 cd Frontend
-npm install --save-dev vitest @testing-library/react @testing-library/jest-dom
 npm test
 ```
 
@@ -176,6 +177,22 @@ npm run test:coverage
 cd Frontend
 npm run test:coverage
 ```
+
+### Test Structure
+
+**Backend Tests:**
+- ✅ Authentication logic (register/login)
+- ✅ Task CRUD operations
+- ✅ Authorization middleware
+- ✅ API endpoint integration tests
+- ✅ Error handling validation
+
+**Frontend Tests:**
+- ✅ Form validation with Zod schemas
+- ✅ Component rendering and behavior
+- ✅ User authentication flows
+- ✅ Task management interactions
+- ✅ Protected route functionality
 
 ## 📚 API Documentation
 
@@ -366,19 +383,21 @@ CREATE TABLE Task (
 
 ### Backend Scripts
 ```bash
-npm run dev      # Start development server with hot reload
-npm run build    # Build for production
-npm start        # Start production server
-npm run test     # Run tests (when configured)
+npm run dev            # Start development server with hot reload
+npm run build          # Build for production
+npm start              # Start production server
+npm test               # Run test suite
+npm run test:coverage  # Run tests with coverage report
 ```
 
 ### Frontend Scripts
 ```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run preview  # Preview production build
-npm run lint     # Run ESLint
-npm run test     # Run tests (when configured)
+npm run dev            # Start development server
+npm run build          # Build for production
+npm run preview        # Preview production build
+npm run lint           # Run ESLint
+npm test               # Run test suite
+npm run test:coverage  # Run tests with coverage report
 ```
 
 ## 🚨 Troubleshooting
@@ -421,9 +440,14 @@ TMS/
 │   │   ├── middleware/      # Authentication middleware
 │   │   ├── routes/          # API routes
 │   │   └── index.ts         # Server entry point
+│   ├── tests/               # Backend test files
+│   │   ├── auth.test.ts     # Authentication tests
+│   │   ├── tasks.test.ts    # Task management tests
+│   │   └── setup.ts         # Test setup configuration
 │   ├── prisma/
 │   │   ├── migrations/      # Database migrations
 │   │   └── schema.prisma    # Database schema
+│   ├── jest.config.js       # Jest testing configuration
 │   └── package.json
 ├── Frontend/
 │   ├── src/
@@ -435,6 +459,11 @@ TMS/
 │   │   │   └── tasks/       # Task management features
 │   │   ├── routes/          # Application routing
 │   │   └── types/           # TypeScript type definitions
+│   ├── __tests__/           # Frontend test files
+│   │   ├── components/      # Component tests
+│   │   ├── features/        # Feature tests
+│   │   └── setup.ts         # Test setup configuration
+│   ├── jest.config.js       # Jest testing configuration
 │   └── package.json
 └── README.md
 ```
