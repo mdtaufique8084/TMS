@@ -44,7 +44,6 @@ const TaskForm = ({ taskToEdit, clearEdit }: TaskFormProps) => {
     try {
       const token = localStorage.getItem("token");
 
-      //  Block submission if token missing
       if (!token) {
         toast.error("Unauthorized! Please log in first.");
         setLoading(false);
@@ -53,7 +52,7 @@ const TaskForm = ({ taskToEdit, clearEdit }: TaskFormProps) => {
 
       if (taskToEdit) {
         const result = await dispatch(updateTask({ id: taskToEdit.id, task: data }));
-        
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((result as any).error?.message?.includes("401")) {
           toast.error("Session expired! Please log in again.");
@@ -65,7 +64,6 @@ const TaskForm = ({ taskToEdit, clearEdit }: TaskFormProps) => {
       } else {
         const result = await dispatch(createTask(data));
 
-        //  Check for unauthorized error
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((result as any).error?.message?.includes("401")) {
           toast.error("Unauthorized! Please log in again.");
@@ -85,57 +83,68 @@ const TaskForm = ({ taskToEdit, clearEdit }: TaskFormProps) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-8 p-8 bg-gradient-to-r from-green-50 to-white shadow-xl rounded-2xl border border-gray-100">
-      <h2 className="text-3xl font-extrabold text-gray-900 mb-6 text-center">
-        {taskToEdit ? "Edit Your Task" : "Create a New Task"}
+    <div className="w-full mx-auto p-8 bg-white shadow-lg rounded-2xl border border-gray-100 transition-all hover:shadow-xl">
+      <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center tracking-tight">
+        {taskToEdit ? "Edit Task" : "Create a New Task"}
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <div className="relative">
+        {/* Title Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Task Title <span className="text-red-500">*</span>
+          </label>
           <input
             {...register("title", { required: "Title is required" })}
-            placeholder="Task Title"
-            className={`w-full p-4 rounded-xl border ${
+            placeholder="Enter task title"
+            className={`w-full p-3 rounded-lg border ${
               errors.title ? "border-red-500" : "border-gray-300"
-            } focus:outline-none focus:ring-2 focus:ring-green-400 shadow-sm transition`}
+            } focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 placeholder-gray-400 text-base transition`}
           />
           {errors.title && (
-            <p className="text-red-500 text-sm mt-1 absolute left-0 bottom-[-1.2rem]">
-              {errors.title.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
           )}
         </div>
 
+        {/* Description Field */}
         <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Description
+          </label>
           <textarea
             {...register("description")}
-            placeholder="Task Description (optional)"
-            className="w-full p-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 shadow-sm transition"
-            rows={5}
+            placeholder="Add more details (optional)"
+            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 placeholder-gray-400 text-base transition"
+            rows={4}
           />
         </div>
 
+        {/* Status Field */}
         <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Status
+          </label>
           <select
             {...register("status")}
-            className="w-full p-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 shadow-sm transition"
+            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900 text-base transition"
           >
             <option value="pending">Pending</option>
             <option value="completed">Completed</option>
           </select>
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
-          className={`flex items-center justify-center gap-3 bg-green-500 text-white p-4 rounded-xl font-bold hover:bg-green-600 transition ${
+          className={`flex items-center justify-center gap-2 bg-emerald-600 text-white py-3 rounded-lg font-medium hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 transition ${
             loading ? "opacity-70 cursor-not-allowed" : ""
           }`}
         >
           {loading ? (
-            <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
+            <AiOutlineLoading3Quarters className="animate-spin text-lg" />
           ) : (
-            <AiOutlineCheck className="text-2xl" />
+            <AiOutlineCheck className="text-lg" />
           )}
           {taskToEdit ? "Update Task" : "Add Task"}
         </button>
