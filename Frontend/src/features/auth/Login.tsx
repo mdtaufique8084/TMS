@@ -10,8 +10,9 @@ import { Eye, EyeOff } from "lucide-react";
 
 const schema = z.object({
   username: z.string().min(3, "Email is required").email("Enter a valid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(1, "Password is required"),
 });
+
 
 type FormData = z.infer<typeof schema>;
 
