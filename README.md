@@ -108,7 +108,6 @@ npm install
 1. **Start the Backend Server**:
    ```bash
    cd Backend
-   npm install
    npm run dev
    ```
    The backend will start on `http://localhost:5000`
@@ -116,7 +115,6 @@ npm install
 2. **Start the Frontend Development Server**:
    ```bash
    cd Frontend
-   npm install
    npm run dev
    ```
    The frontend will start on `http://localhost:5173`
