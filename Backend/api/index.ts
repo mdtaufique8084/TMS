@@ -10,11 +10,8 @@ import taskRoutes from "../src/routes/taskRoutes";
 dotenv.config();
 
 const app = express();
-
 app.use(cors());
 app.use(bodyParser.json());
-
-// Prefix your API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
